@@ -1,0 +1,46 @@
+program prjTCC;
+
+uses
+  Vcl.Forms,
+  uPrincipal in 'uPrincipal.pas' {frmPrincipal},
+  uDM in 'uDM.pas' {DM: TDataModule},
+  uTentandoReconectar in 'uTentandoReconectar.pas' {frmTentandoReconectar},
+  uRaiz in 'uRaiz.pas' {frmRaiz},
+  uMenu in 'uMenu.pas',
+  uTema in 'uTema.pas' {frmTema},
+  SpeedButtonMenu in '\\paulo\prjTCC\Comp\SpeedButtonMenu.pas',
+  uUsuario in 'uUsuario.pas',
+  uLogin in 'uLogin.pas' {frmLogin},
+  uArtigo in 'uArtigo.pas' {frmArtigo},
+  uFornecedor in 'uFornecedor.pas' {frmFornecedor},
+  uArtigo_db in 'uArtigo_db.pas',
+  uFornecedor_db in 'uFornecedor_db.pas',
+  uFuncoesBD in 'uFuncoesBD.pas',
+  uVariaveis in 'uVariaveis.pas',
+  uRaiz_Edicao in 'uRaiz_Edicao.pas' {frmRaiz_Edicao},
+  uArtigo_Edicao in 'uArtigo_Edicao.pas' {frmArtigo_Edicao},
+  uFuncoes in 'uFuncoes.pas',
+  uFornecedor_Edicao in 'uFornecedor_Edicao.pas' {frmFornecedor_Edicao},
+  uFornecedor_Edicao_Contato in 'uFornecedor_Edicao_Contato.pas' {frmFornecedor_Edicao_Contato},
+  uArtigo_Edicao_Tamanho in 'uArtigo_Edicao_Tamanho.pas' {frmArtigo_Edicao_Tamanho},
+  uFuncoesImagem in 'uFuncoesImagem.pas',
+  uFornecedor_Edicao_Contato_db in 'uFornecedor_Edicao_Contato_db.pas',
+  uArtigo_Edicao_Tamanho_Edicao in 'uArtigo_Edicao_Tamanho_Edicao.pas' {frmArtigo_Edicao_Tamanho_Edicao},
+  uArtigo_Criacao in 'uArtigo_Criacao.pas' {frmArtigo_Criacao};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TDM, DM);
+  frmLogin := TfrmLogin.Create(nil);
+  frmLogin.ShowModal;
+  if frmLogin.ModalResult = 1 then
+  begin
+     frmLogin.DisposeOf;
+     frmTema := TfrmTema.Create(nil);
+     Application.CreateForm(TfrmPrincipal, frmPrincipal);
+     Application.Run;
+  end;
+end.
