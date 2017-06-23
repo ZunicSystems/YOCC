@@ -102,60 +102,60 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="..\PAS\uPrincipal.pas">
+        <DCCReference Include="..\PAS\Requisitos\uPrincipal.pas">
             <Form>frmPrincipal</Form>
         </DCCReference>
-        <DCCReference Include="..\PAS\uDM.pas">
+        <DCCReference Include="..\PAS\DM\uDM.pas">
             <Form>DM</Form>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="..\PAS\uTentandoReconectar.pas">
+        <DCCReference Include="..\PAS\Requisitos\uTentandoReconectar.pas">
             <Form>frmTentandoReconectar</Form>
         </DCCReference>
-        <DCCReference Include="..\PAS\uRaiz.pas">
+        <DCCReference Include="..\PAS\Requisitos\uRaiz.pas">
             <Form>frmRaiz</Form>
         </DCCReference>
-        <DCCReference Include="..\PAS\uMenu.pas"/>
-        <DCCReference Include="..\PAS\uTema.pas">
+        <DCCReference Include="..\PAS\Requisitos\uMenu.pas"/>
+        <DCCReference Include="..\PAS\Requisitos\uTema.pas">
             <Form>frmTema</Form>
         </DCCReference>
-        <DCCReference Include="..\PAS\SpeedButtonMenu.pas"/>
-        <DCCReference Include="..\PAS\uUsuario.pas"/>
-        <DCCReference Include="..\PAS\uLogin.pas">
+        <DCCReference Include="..\PAS\Requisitos\SpeedButtonMenu.pas"/>
+        <DCCReference Include="..\PAS\Requisitos\uUsuario.pas"/>
+        <DCCReference Include="..\PAS\Requisitos\uLogin.pas">
             <Form>frmLogin</Form>
         </DCCReference>
-        <DCCReference Include="..\PAS\uArtigo.pas">
+        <DCCReference Include="..\PAS\Artigo\uArtigo.pas">
             <Form>frmArtigo</Form>
         </DCCReference>
-        <DCCReference Include="..\PAS\uFornecedor.pas">
+        <DCCReference Include="..\PAS\Fornecedor\uFornecedor.pas">
             <Form>frmFornecedor</Form>
         </DCCReference>
-        <DCCReference Include="..\PAS\uArtigo_db.pas"/>
-        <DCCReference Include="..\PAS\uFornecedor_db.pas"/>
-        <DCCReference Include="..\PAS\uFuncoesBD.pas"/>
-        <DCCReference Include="..\PAS\uVariaveis.pas"/>
-        <DCCReference Include="..\PAS\uRaiz_Edicao.pas">
+        <DCCReference Include="..\PAS\Artigo\uArtigo_db.pas"/>
+        <DCCReference Include="..\PAS\Fornecedor\uFornecedor_db.pas"/>
+        <DCCReference Include="..\PAS\Requisitos\uFuncoesBD.pas"/>
+        <DCCReference Include="..\PAS\Requisitos\uVariaveis.pas"/>
+        <DCCReference Include="..\PAS\Requisitos\uRaiz_Edicao.pas">
             <Form>frmRaiz_Edicao</Form>
         </DCCReference>
-        <DCCReference Include="..\PAS\uArtigo_Edicao.pas">
+        <DCCReference Include="..\PAS\Artigo\uArtigo_Edicao.pas">
             <Form>frmArtigo_Edicao</Form>
         </DCCReference>
-        <DCCReference Include="..\PAS\uFuncoes.pas"/>
-        <DCCReference Include="..\PAS\uFornecedor_Edicao.pas">
+        <DCCReference Include="..\PAS\Requisitos\uFuncoes.pas"/>
+        <DCCReference Include="..\PAS\Fornecedor\uFornecedor_Edicao.pas">
             <Form>frmFornecedor_Edicao</Form>
         </DCCReference>
-        <DCCReference Include="..\PAS\uFornecedor_Edicao_Contato.pas">
+        <DCCReference Include="..\PAS\Fornecedor\uFornecedor_Edicao_Contato.pas">
             <Form>frmFornecedor_Edicao_Contato</Form>
         </DCCReference>
-        <DCCReference Include="..\PAS\uArtigo_Edicao_Tamanho.pas">
+        <DCCReference Include="..\PAS\Artigo\uArtigo_Edicao_Tamanho.pas">
             <Form>frmArtigo_Edicao_Tamanho</Form>
         </DCCReference>
-        <DCCReference Include="..\PAS\uFuncoesImagem.pas"/>
-        <DCCReference Include="..\PAS\uFornecedor_Edicao_Contato_db.pas"/>
-        <DCCReference Include="..\PAS\uArtigo_Edicao_Tamanho_Edicao.pas">
+        <DCCReference Include="..\PAS\Requisitos\uFuncoesImagem.pas"/>
+        <DCCReference Include="..\PAS\Fornecedor\uFornecedor_Edicao_Contato_db.pas"/>
+        <DCCReference Include="..\PAS\Artigo\uArtigo_Edicao_Tamanho_Edicao.pas">
             <Form>frmArtigo_Edicao_Tamanho_Edicao</Form>
         </DCCReference>
-        <DCCReference Include="..\PAS\uArtigo_Criacao.pas">
+        <DCCReference Include="..\PAS\Artigo\uArtigo_Criacao.pas">
             <Form>frmArtigo_Criacao</Form>
         </DCCReference>
         <BuildConfiguration Include="Release">
@@ -192,27 +192,12 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployClass Name="DependencyModule">
-                    <Platform Name="Win32">
-                        <Operation>0</Operation>
-                        <Extensions>.dll;.bpl</Extensions>
-                    </Platform>
+                <DeployClass Name="ProjectiOSDeviceResourceRules">
                     <Platform Name="iOSDevice64">
                         <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
-                    </Platform>
-                    <Platform Name="OSX32">
-                        <RemoteDir>Contents\MacOS</RemoteDir>
-                        <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
                     </Platform>
                     <Platform Name="iOSDevice32">
                         <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
                     </Platform>
                 </DeployClass>
                 <DeployClass Name="ProjectOSXResource">
@@ -563,12 +548,27 @@
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
-                <DeployClass Name="ProjectiOSDeviceResourceRules">
+                <DeployClass Name="DependencyModule">
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                        <Extensions>.dll;.bpl</Extensions>
+                    </Platform>
                     <Platform Name="iOSDevice64">
                         <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
                     </Platform>
                     <Platform Name="iOSDevice32">
                         <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
                     </Platform>
                 </DeployClass>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
