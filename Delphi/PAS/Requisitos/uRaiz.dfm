@@ -14,6 +14,8 @@ object frmRaiz: TfrmRaiz
   Font.Style = []
   OldCreateOrder = False
   OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object pnlTitulo: TPanel
@@ -40,9 +42,7 @@ object frmRaiz: TfrmRaiz
       Font.Style = [fsBold]
       ParentFont = False
       Layout = tlCenter
-      ExplicitLeft = 2
-      ExplicitTop = -4
-      ExplicitHeight = 25
+      ExplicitWidth = 44
     end
   end
   object pnlWorkArea: TPanel
@@ -54,7 +54,5 @@ object frmRaiz: TfrmRaiz
     Color = 16055807
     ParentBackground = False
     TabOrder = 1
-    ExplicitTop = 27
-    ExplicitHeight = 290
   end
 end

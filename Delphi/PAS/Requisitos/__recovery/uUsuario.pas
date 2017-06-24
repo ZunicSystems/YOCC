@@ -62,7 +62,7 @@ implementation
 
 constructor TUsuario.Create;
 begin
-   {:: Obtêm os dados do usuario ::}
+   {:: ObtÃªm os dados do usuario ::}
    fsHost := getNomeComputador();
    fsIP := getIPExtreno();
 end;
@@ -76,7 +76,7 @@ procedure TUsuario.doAtualizaUsuario;
 var
    qryUsuario : TADOQuery;
 begin
-   {:: Atualiza o registro do usuário ::}
+   {:: Atualiza o registro do usuÃ¡rio ::}
    qryUsuario := TADOQuery.Create(nil);
    qryUsuario.Connection := DM.Conexao;
 
@@ -117,7 +117,7 @@ function TUsuario.doValidaUsuario(Usuario, Senha: String): boolean;
 var
    qryUsuario : TADOQuery;
 begin
-   {:: Procura se o usuario existe e depois verifica se a senha está correta ::}
+   {:: Procura se o usuario existe e depois verifica se a senha estÃ¡ correta ::}
    qryUsuario := TADOQuery.Create(nil);
    qryUsuario.Connection := DM.Conexao;
 
@@ -182,51 +182,52 @@ begin
 
    for i := 0 to Grid.Columns.Count - 1 do
    begin
-     with qryGrids, qryGrids.SQL do begin
-       Close;
-       Clear;
-       Add('declare @Posicao Int, @Largura int, @FK_IDUsuario int,');
-       Add('	@Form Varchar(255), @Grid Varchar(255), @Coluna varchar(255)');
-       Add('SET @Posicao = :Posicao');
-       Add('SET @Largura = :Largura');
-       Add('SET @FK_IDUsuario = :ID');
-       Add('SET @Form = :Form');
-       Add('SET @Grid = :Grid');
-       Add('SET @Coluna = :Coluna');
-       Parameters.ParamByName('Posicao').Value := i;
-       Parameters.ParamByName('Largura').Value := Grid.Columns[i].Width;
-       Parameters.ParamByName('ID').Value := fsID;
-       Parameters.ParamByName('Form').Value := Form.Name;
-       Parameters.ParamByName('Grid').Value := Grid.Name;
-       Parameters.ParamByName('Coluna').Value := Grid.Columns[i].FieldName;
+      with qryGrids, qryGrids.SQL do begin
+         Close;
+         Clear;
+         Add('declare @Posicao Int, @Largura int, @FK_IDUsuario int,');
+         Add('	@Form Varchar(255), @Grid Varchar(255), @Coluna varchar(255)');
+         Add('SET @Posicao = :Posicao');
+         Add('SET @Largura = :Largura');
+         Add('SET @FK_IDUsuario = :ID');
+         Add('SET @Form = :Form');
+         Add('SET @Grid = :Grid');
+         Add('SET @Coluna = :Coluna');
 
-       Add('IF Exists (Select *');
-       Add('		 from RUsuario_Grid_Ordenacao');
-       Add('		 where');
-       Add('			 vForm = @Form and');
-       Add('			 vGrid = @Grid and');
-       Add('			 vColuna = @Coluna and');
-       Add('			 FK_IDUsuario = FK_IDUsuario');
-       Add('         )');
-       Add('BEGIN');
-       Add('	UPDATE RUsuario_Grid_Ordenacao');
-       Add('	SET iPosicao = @Posicao,');
-       Add('		iLargura = @Largura');
-       Add('	where');
-       Add('		vForm = @Form and');
-       Add('		vGrid = @Grid and');
-       Add('		vColuna = @Coluna and');
-       Add('		FK_IDUsuario = @FK_IDUsuario');
-       Add('END');
-       Add('ELSE');
-       Add('BEGIN');
-       Add('	INSERT INTO RUsuario_Grid_Ordenacao');
-       Add('	      (vForm, vGrid, vColuna, iPosicao, iLargura, FK_IDUsuario)');
-       Add('	VALUES');
-       Add('	      (@Form, @Grid, @Coluna, @Posicao, @Largura, @FK_IDUsuario)');
-       Add('END');
-       ExecSQL;
-     end;
+         Parameters.ParamByName('Posicao').Value := i;
+         Parameters.ParamByName('Largura').Value := Grid.Columns[i].Width;
+         Parameters.ParamByName('ID').Value := fsID;
+         Parameters.ParamByName('Form').Value := Form.Name;
+         Parameters.ParamByName('Grid').Value := Grid.Name;
+         Parameters.ParamByName('Coluna').Value := Grid.Columns[i].FieldName;
+
+         Add('IF Exists (Select *');
+         Add('		 from RUsuario_Grid_Ordenacao');
+         Add('		 where');
+         Add('			 vForm = @Form and');
+         Add('			 vGrid = @Grid and');
+         Add('			 vColuna = @Coluna and');
+         Add('			 FK_IDUsuario = FK_IDUsuario');
+         Add('         )');
+         Add('BEGIN');
+         Add('	UPDATE RUsuario_Grid_Ordenacao');
+         Add('	SET iPosicao = @Posicao,');
+         Add('		iLargura = @Largura');
+         Add('	where');
+         Add('		vForm = @Form and');
+         Add('		vGrid = @Grid and');
+         Add('		vColuna = @Coluna and');
+         Add('		FK_IDUsuario = @FK_IDUsuario');
+         Add('END');
+         Add('ELSE');
+         Add('BEGIN');
+         Add('	INSERT INTO RUsuario_Grid_Ordenacao');
+         Add('	      (vForm, vGrid, vColuna, iPosicao, iLargura, FK_IDUsuario)');
+         Add('	VALUES');
+         Add('	      (@Form, @Grid, @Coluna, @Posicao, @Largura, @FK_IDUsuario)');
+         Add('END');
+         ExecSQL;
+      end;
    end;
 
    fsConfigGrids := getConfigGrids(fsID);
@@ -241,7 +242,7 @@ begin
    qryGrids := TADOQuery.Create(nil);
    qryGrids.Connection := DM.Conexao;
 
-   //pego todas as posições definidas
+   //pego todas as posiÃ§Ãµes definidas
    with qryGrids, qryGrids.SQL do begin
       Close;
       Clear;
@@ -318,7 +319,7 @@ var
   JSONObject: TJSONObject;
   IdHTTP: TIdHTTP;
 begin
-   {:: Função que retorna o IP externo :}
+   {:: FunÃ§Ã£o que retorna o IP externo :}
    RetornoSite := TStringStream.Create(EmptyStr);
    try
       IdHTTP := TIdHTTP.Create(nil);
@@ -342,7 +343,7 @@ begin
             end;
          end
          else
-            Result := 'Impossível Obter TCP/IP.';
+            Result := 'ImpossÃ­vel Obter TCP/IP.';
       finally
          FreeAndNil(IdHTTP);
       end;
@@ -361,7 +362,7 @@ var
    Nome : String;
    Tamanho : dword;
 begin
-   {:: Função que retorna o nome do computador ::}
+   {:: FunÃ§Ã£o que retorna o nome do computador ::}
    Tamanho := MAX_COMPUTERNAME_LENGTH + 1;
    SetLength(Nome,Tamanho);
    if Winapi.Windows.GetComputerName(pChar(Nome),Tamanho) then
@@ -370,7 +371,7 @@ begin
    end
    else
    begin
-      Result := 'Não foi Possivel capturar o nome do computador.';
+      Result := 'NÃ£o foi Possivel capturar o nome do computador.';
    end;
 end;
 
