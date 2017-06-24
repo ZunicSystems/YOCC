@@ -5,3 +5,4 @@ comp
 SQL
 *.udl
 *.~*
+__recovery

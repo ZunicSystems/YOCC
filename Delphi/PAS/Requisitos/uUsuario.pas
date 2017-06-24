@@ -182,51 +182,52 @@ begin
 
    for i := 0 to Grid.Columns.Count - 1 do
    begin
-     with qryGrids, qryGrids.SQL do begin
-       Close;
-       Clear;
-       Add('declare @Posicao Int, @Largura int, @FK_IDUsuario int,');
-       Add('	@Form Varchar(255), @Grid Varchar(255), @Coluna varchar(255)');
-       Add('SET @Posicao = :Posicao');
-       Add('SET @Largura = :Largura');
-       Add('SET @FK_IDUsuario = :ID');
-       Add('SET @Form = :Form');
-       Add('SET @Grid = :Grid');
-       Add('SET @Coluna = :Coluna');
-       Parameters.ParamByName('Posicao').Value := i;
-       Parameters.ParamByName('Largura').Value := Grid.Columns[i].Width;
-       Parameters.ParamByName('ID').Value := fsID;
-       Parameters.ParamByName('Form').Value := Form.Name;
-       Parameters.ParamByName('Grid').Value := Grid.Name;
-       Parameters.ParamByName('Coluna').Value := Grid.Columns[i].FieldName;
+      with qryGrids, qryGrids.SQL do begin
+         Close;
+         Clear;
+         Add('declare @Posicao Int, @Largura int, @FK_IDUsuario int,');
+         Add('	@Form Varchar(255), @Grid Varchar(255), @Coluna varchar(255)');
+         Add('SET @Posicao = :Posicao');
+         Add('SET @Largura = :Largura');
+         Add('SET @FK_IDUsuario = :ID');
+         Add('SET @Form = :Form');
+         Add('SET @Grid = :Grid');
+         Add('SET @Coluna = :Coluna');
 
-       Add('IF Exists (Select *');
-       Add('		 from RUsuario_Grid_Ordenacao');
-       Add('		 where');
-       Add('			 vForm = @Form and');
-       Add('			 vGrid = @Grid and');
-       Add('			 vColuna = @Coluna and');
-       Add('			 FK_IDUsuario = FK_IDUsuario');
-       Add('         )');
-       Add('BEGIN');
-       Add('	UPDATE RUsuario_Grid_Ordenacao');
-       Add('	SET iPosicao = @Posicao,');
-       Add('		iLargura = @Largura');
-       Add('	where');
-       Add('		vForm = @Form and');
-       Add('		vGrid = @Grid and');
-       Add('		vColuna = @Coluna and');
-       Add('		FK_IDUsuario = @FK_IDUsuario');
-       Add('END');
-       Add('ELSE');
-       Add('BEGIN');
-       Add('	INSERT INTO RUsuario_Grid_Ordenacao');
-       Add('	      (vForm, vGrid, vColuna, iPosicao, iLargura, FK_IDUsuario)');
-       Add('	VALUES');
-       Add('	      (@Form, @Grid, @Coluna, @Posicao, @Largura, @FK_IDUsuario)');
-       Add('END');
-       ExecSQL;
-     end;
+         Parameters.ParamByName('Posicao').Value := i;
+         Parameters.ParamByName('Largura').Value := Grid.Columns[i].Width;
+         Parameters.ParamByName('ID').Value := fsID;
+         Parameters.ParamByName('Form').Value := Form.Name;
+         Parameters.ParamByName('Grid').Value := Grid.Name;
+         Parameters.ParamByName('Coluna').Value := Grid.Columns[i].FieldName;
+
+         Add('IF Exists (Select *');
+         Add('		 from RUsuario_Grid_Ordenacao');
+         Add('		 where');
+         Add('			 vForm = @Form and');
+         Add('			 vGrid = @Grid and');
+         Add('			 vColuna = @Coluna and');
+         Add('			 FK_IDUsuario = FK_IDUsuario');
+         Add('         )');
+         Add('BEGIN');
+         Add('	UPDATE RUsuario_Grid_Ordenacao');
+         Add('	SET iPosicao = @Posicao,');
+         Add('		iLargura = @Largura');
+         Add('	where');
+         Add('		vForm = @Form and');
+         Add('		vGrid = @Grid and');
+         Add('		vColuna = @Coluna and');
+         Add('		FK_IDUsuario = @FK_IDUsuario');
+         Add('END');
+         Add('ELSE');
+         Add('BEGIN');
+         Add('	INSERT INTO RUsuario_Grid_Ordenacao');
+         Add('	      (vForm, vGrid, vColuna, iPosicao, iLargura, FK_IDUsuario)');
+         Add('	VALUES');
+         Add('	      (@Form, @Grid, @Coluna, @Posicao, @Largura, @FK_IDUsuario)');
+         Add('END');
+         ExecSQL;
+      end;
    end;
 
    fsConfigGrids := getConfigGrids(fsID);
