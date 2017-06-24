@@ -93,6 +93,7 @@
         <DCC_DebugInformation>0</DCC_DebugInformation>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+        <DCC_IOChecking>false</DCC_IOChecking>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <AppEnableHighDPI>true</AppEnableHighDPI>
@@ -158,6 +159,15 @@
         <DCCReference Include="..\PAS\Artigo\uArtigo_Criacao.pas">
             <Form>frmArtigo_Criacao</Form>
         </DCCReference>
+        <DCCReference Include="..\PAS\Grupo\uGrupo.pas">
+            <Form>frmGrupo</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\PAS\Grupo\uGrupo_Edicao.pas">
+            <Form>frmGrupo_Edicao</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\PAS\Grupo\uGrupo_db.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -186,7 +196,13 @@
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
-                <DeployFile LocalName="Win32\Debug\prjTCC.exe" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="..\EXE\DEBUG\prjTCC.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>prjTCC.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\EXE\RELEASE\prjTCC.exe" Configuration="Release" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>prjTCC.exe</RemoteName>
                         <Overwrite>true</Overwrite>

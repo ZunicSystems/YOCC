@@ -41,7 +41,7 @@ implementation
 
 {$R *.dfm}
 
-uses uDM,uTema, uRaiz, uArtigo, uFornecedor;
+uses uDM,uTema, uRaiz, uArtigo, uFornecedor, uGrupo;
 
 procedure TfrmPrincipal.AjustaTamanhoTela;
 begin
@@ -127,6 +127,7 @@ begin
    RegisterClass(TfrmRaiz);
    RegisterClass(TfrmArtigo);
    RegisterClass(TfrmFornecedor);
+   RegisterClass(TfrmGrupo);
 end;
 
 end.

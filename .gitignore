@@ -4,3 +4,4 @@ exe
 comp
 SQL
 *.udl
+*.~*

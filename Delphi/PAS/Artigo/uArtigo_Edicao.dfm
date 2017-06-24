@@ -11,6 +11,8 @@ inherited frmArtigo_Edicao: TfrmArtigo_Edicao
   inherited pnlWorkArea: TPanel
     Width = 607
     Height = 352
+    ExplicitLeft = 0
+    ExplicitTop = 0
     ExplicitWidth = 607
     ExplicitHeight = 352
     object btnSair: TBitBtn

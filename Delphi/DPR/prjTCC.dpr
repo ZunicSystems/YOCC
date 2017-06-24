@@ -26,7 +26,10 @@ uses
   uFuncoesImagem in '..\PAS\Requisitos\uFuncoesImagem.pas',
   uFornecedor_Edicao_Contato_db in '..\PAS\Fornecedor\uFornecedor_Edicao_Contato_db.pas',
   uArtigo_Edicao_Tamanho_Edicao in '..\PAS\Artigo\uArtigo_Edicao_Tamanho_Edicao.pas' {frmArtigo_Edicao_Tamanho_Edicao},
-  uArtigo_Criacao in '..\PAS\Artigo\uArtigo_Criacao.pas' {frmArtigo_Criacao};
+  uArtigo_Criacao in '..\PAS\Artigo\uArtigo_Criacao.pas' {frmArtigo_Criacao},
+  uGrupo in '..\PAS\Grupo\uGrupo.pas' {frmGrupo},
+  uGrupo_Edicao in '..\PAS\Grupo\uGrupo_Edicao.pas' {frmGrupo_Edicao},
+  uGrupo_db in '..\PAS\Grupo\uGrupo_db.pas';
 
 {$R *.res}
 

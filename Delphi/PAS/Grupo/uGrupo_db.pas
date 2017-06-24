@@ -5,15 +5,16 @@
    3 - LEMBRAR DE INCLUIR O [doAbreDados] -- Dados que aparecem no grid
    4 - LEMBRAR DE INCLUIR O [doCarregaRegistro] -- Dados que aparecem no grid + dados da tabela base
 ::}
-unit uArtigo_db;
+
+unit uGrupo_db;
 
 interface
 uses
    Winapi.Windows, Winapi.Messages, Data.Win.ADODB, Data.DB, System.SysUtils,
-   System.Variants, System.Classes, uFuncoesBD, Vcl.Forms, Vcl.Dialogs, Vcl.Graphics,
-   Vcl.Controls, Vcl.ExtCtrls;
+   System.Variants, System.Classes, Vcl.Forms, Vcl.Dialogs, Vcl.Graphics,
+   Vcl.Controls, Vcl.ExtCtrls, uFuncoesBD;
 
-type TArtigoDB = class(TObject)
+type TGrupoDB = class(TObject)
    sProcedure : TADOStoredProc;
    qryPrincipal : TADOQuery;
    private
@@ -34,7 +35,7 @@ type TArtigoDB = class(TObject)
       procedure doDeleta();
       function getIDArtigo():integer;
       procedure doCarregaForm(Tela : TForm);
-      procedure doGrava();
+      procedure doGrava(Tela: TForm);
       procedure doCancelaAlteracao();
       procedure doAbreDados();
       procedure setModoEdicao(modo : String);
@@ -42,7 +43,7 @@ type TArtigoDB = class(TObject)
       constructor Create(FormLOG : TForm);
       destructor Destroy();
    const
-      NOMEPROCEDURE : String = 'pArtigo;1';
+      NOMEPROCEDURE : String = 'pGrupo;1';
 end;
 
 implementation
@@ -51,7 +52,7 @@ uses uDM;
 
 { TArtigoDB }
 
-constructor TArtigoDB.Create(FormLOG : TForm);
+constructor TGrupoDB.Create(FormLOG : TForm);
 begin
    // Operação padrão será a EDICAO
    setModoEdicao('edita');
@@ -63,7 +64,7 @@ begin
    doCriaSP();
 end;
 
-procedure TArtigoDB.doCriaQuery;
+procedure TGrupoDB.doCriaQuery;
 begin
    {:: Cria o objeto QUERY e configura ::}
    qryPrincipal := TADOQuery.Create(nil);
@@ -73,7 +74,7 @@ begin
    qryPrincipal.SQL.Clear;
 end;
 
-procedure TArtigoDB.doCriaSP;
+procedure TGrupoDB.doCriaSP;
 begin
    {:: Cria procedure e CONFIGURA os parametros ::}
    sProcedure := TADOStoredProc.Create(nil);
@@ -83,7 +84,7 @@ begin
    sProcedure.Parameters.Refresh;
 end;
 
-procedure TArtigoDB.doDeleta;
+procedure TGrupoDB.doDeleta;
 begin
    if (MessageDlg('Atenção. Deseja realmente deletar esse registro ?',
        mtConfirmation, [mbYes, mbNo], 0) in [mrNo, mrNone]) then
@@ -107,7 +108,7 @@ begin
    doAbreDados();
 end;
 
-destructor TArtigoDB.Destroy;
+destructor TGrupoDB.Destroy;
 begin
    {:: Libera os objetos da memoria ::}
    qryPrincipal.Close;
@@ -115,7 +116,7 @@ begin
    FreeAndNil(sProcedure);
 end;
 
-procedure TArtigoDB.doAbreDados;
+procedure TGrupoDB.doAbreDados;
 begin
    {:: dados que serão exibidos no DBGRID ::}
    with qryPrincipal, qryPrincipal.SQL do
@@ -123,40 +124,33 @@ begin
       Close;
       Clear;
       Add('SET DateFormat DMY');
-      Add('SELECT A.ID ,');
-      Add('       A.dCriacao ,');
-      Add('       A.vReferencia ,');
-      Add('       A.vNome,');
-      Add('       RCol.vNome NomeColecao,');
-      Add('       RGru.vNome NomeGrupo,');
-      Add('       Forn.vRazaoSocial NomeFornecedor');
+      Add('SELECT G.ID ,');
+      Add('       G.dCriacao ,');
+      Add('       G.vNome');
       Add('FROM');
-      Add('     Artigo A');
-      Add('LEFT JOIN dbo.RColecao RCol ON(RCol.ID = A.FK_IDRColecao)');
-      Add('LEFT JOIN dbo.RGrupo RGru ON(RGru.ID = A.FK_IDRGrupo)');
-      Add('LEFT JOIN dbo.Fornecedor Forn ON(Forn.ID = A.FK_IDFornecedor)');
+      Add('     dbo.RGrupo G');
       Add('WHERE');
-      Add('      A.bDeletado = 0');
+      Add('      ISNULL(G.bDeletado,0) <> 1');
       Open;
    end;
 
    qryPrincipal.Locate('ID', fsChavePrimaria, []);
 end;
 
-procedure TArtigoDB.doAltera;
+procedure TGrupoDB.doAltera;
 begin
    ERPparaDB(sProcedure, fsForm, 'U', qryPrincipal);
 
    getErro()
 end;
 
-procedure TArtigoDB.doCancelaAlteracao;
+procedure TGrupoDB.doCancelaAlteracao;
 begin
    doCarregaRegistro();
    doRefreshTela();
 end;
 
-procedure TArtigoDB.doCarregaForm(Tela: TForm);
+procedure TGrupoDB.doCarregaForm(Tela: TForm);
 begin
    fsForm := Tela;
 
@@ -164,7 +158,7 @@ begin
    DBparaERP(qryPrincipal, fsForm);
 end;
 
-procedure TArtigoDB.doCarregaRegistro;
+procedure TGrupoDB.doCarregaRegistro;
 begin
    {:: Carrega a linha que vai sofrer alterações ::}
    fsChavePrimaria := qryPrincipal.Fields[0].AsInteger;
@@ -174,17 +168,11 @@ begin
       Close;
       Clear;
       Add('SET DateFormat DMY');
-      Add('SELECT A.*,');
-      Add('       RCol.vNome NomeColecao,');
-      Add('       RGru.vNome NomeGrupo,');
-      Add('       Forn.vRazaoSocial NomeFornecedor');
+      Add('SELECT G.*');
       Add('FROM');
-      Add('     Artigo A');
-      Add('LEFT JOIN dbo.RColecao RCol ON(RCol.ID = A.FK_IDRColecao)');
-      Add('LEFT JOIN dbo.RGrupo RGru ON(RGru.ID = A.FK_IDRGrupo)');
-      Add('LEFT JOIN dbo.Fornecedor Forn ON(Forn.ID = A.FK_IDFornecedor)');
+      Add('     dbo.RGrupo G');
       Add('WHERE');
-      Add('      A.ID = :ID');
+      Add('      G.ID = :ID');
 
       if fsModoEdicao = 'edita' then Parameters.ParamByName('ID').Value := fsChavePrimaria
       else Parameters.ParamByName('ID').Value := 0;
@@ -193,8 +181,9 @@ begin
    end;
 end;
 
-procedure TArtigoDB.doGrava();
+procedure TGrupoDB.doGrava(Tela: TForm);
 begin
+  fsForm := Tela;
    {:: EDITA ou GRAVA ::}
    if fsModoEdicao = 'edita' then
    begin
@@ -211,7 +200,7 @@ begin
    doRefreshTela();
 end;
 
-procedure TArtigoDB.doInsere;
+procedure TGrupoDB.doInsere;
 begin
    ERPparaDB(sProcedure, fsForm, 'C', qryPrincipal);
 
@@ -221,14 +210,14 @@ begin
    if Source <> nil then fsChavePrimaria := Source.Value;
 end;
 
-procedure TArtigoDB.doRefreshTela;
+procedure TGrupoDB.doRefreshTela;
 begin
    DBparaERP(qryPrincipal, fsForm);
 end;
 
-procedure TArtigoDB.getErro;
+procedure TGrupoDB.getErro;
 begin
-   if getRetorno <> 'ok' then
+   if getRetorno() <> 'ok' then
    begin
       ShowMessage('OOPS. Algo deu errado. Tente novamente dentro de alguns minutos ... ' + ^m +
                   'Ou entre em contato com o nosso suporte.');
@@ -236,17 +225,17 @@ begin
    end;
 end;
 
-function TArtigoDB.getIDArtigo: integer;
+function TGrupoDB.getIDArtigo: integer;
 begin
    Result := fsChavePrimaria;
 end;
 
-function TArtigoDB.getModoEdicao: String;
+function TGrupoDB.getModoEdicao: String;
 begin
    Result := fsModoEdicao;
 end;
 
-function TArtigoDB.getRetorno: String;
+function TGrupoDB.getRetorno: String;
 begin
    // Verifica o RETORNO.
    Result := '';
@@ -255,7 +244,7 @@ begin
    if Source <> nil then Result := LowerCase(Source.Value);
 end;
 
-procedure TArtigoDB.setModoEdicao(modo : String);
+procedure TGrupoDB.setModoEdicao(modo : String);
 begin
    // Altera o modo de EDIÇÃO.
    fsModoEdicao := LowerCase(modo);
