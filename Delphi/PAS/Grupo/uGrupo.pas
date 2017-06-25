@@ -16,9 +16,9 @@ type
     btnInativar: TSpeedButton;
     DataSource1: TDataSource;
     Chart1: TChart;
-    Series1: TBarSeries;
     Chart2: TChart;
     Series2: TPieSeries;
+    Series1: TBarSeries;
     procedure btnNovoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);

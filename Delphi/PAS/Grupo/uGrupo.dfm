@@ -3,7 +3,6 @@ inherited frmGrupo: TfrmGrupo
   ClientHeight = 461
   ClientWidth = 796
   OnClose = FormClose
-  ExplicitLeft = -9
   ExplicitWidth = 796
   ExplicitHeight = 461
   PixelsPerInch = 96
@@ -191,7 +190,6 @@ inherited frmGrupo: TfrmGrupo
       Height = 249
       Title.Text.Strings = (
         'Estoque')
-      View3D = False
       ParentColor = True
       TabOrder = 1
       Anchors = [akLeft, akRight, akBottom]
@@ -201,10 +199,9 @@ inherited frmGrupo: TfrmGrupo
         24
         15
         24)
-      ColorPaletteIndex = 13
+      ColorPaletteIndex = 11
       object Series1: TBarSeries
         SeriesColor = 11890762
-        Sides = 92
         XValues.Name = 'X'
         XValues.Order = loAscending
         YValues.Name = 'Bar'
@@ -218,11 +215,6 @@ inherited frmGrupo: TfrmGrupo
       Height = 173
       Title.Text.Strings = (
         'Produtos Cadastrados')
-      View3D = False
-      View3DOptions.Elevation = 315
-      View3DOptions.Orthogonal = False
-      View3DOptions.Perspective = 0
-      View3DOptions.Rotation = 360
       ParentColor = True
       TabOrder = 2
       DefaultCanvas = 'TGDIPlusCanvas'
@@ -231,7 +223,6 @@ inherited frmGrupo: TfrmGrupo
         24
         15
         24)
-      ColorPaletteIndex = 13
       object Series2: TPieSeries
         XValues.Order = loAscending
         YValues.Name = 'Pie'
