@@ -3,7 +3,7 @@ inherited frmGrupo: TfrmGrupo
   ClientHeight = 461
   ClientWidth = 796
   OnClose = FormClose
-  OnShow = FormShow
+  ExplicitLeft = -9
   ExplicitWidth = 796
   ExplicitHeight = 461
   PixelsPerInch = 96
@@ -20,7 +20,8 @@ inherited frmGrupo: TfrmGrupo
   inherited pnlWorkArea: TPanel
     Width = 796
     Height = 441
-    ExplicitTop = 20
+    ExplicitLeft = 1
+    ExplicitTop = 25
     ExplicitWidth = 796
     ExplicitHeight = 441
     object btnNovo: TSpeedButton
@@ -182,6 +183,77 @@ inherited frmGrupo: TfrmGrupo
           Width = 154
           Visible = True
         end>
+    end
+    object Chart1: TChart
+      Left = 302
+      Top = 184
+      Width = 484
+      Height = 249
+      Title.Text.Strings = (
+        'Estoque')
+      View3D = False
+      ParentColor = True
+      TabOrder = 1
+      Anchors = [akLeft, akRight, akBottom]
+      DefaultCanvas = 'TGDIPlusCanvas'
+      PrintMargins = (
+        15
+        24
+        15
+        24)
+      ColorPaletteIndex = 13
+      object Series1: TBarSeries
+        SeriesColor = 11890762
+        Sides = 92
+        XValues.Name = 'X'
+        XValues.Order = loAscending
+        YValues.Name = 'Bar'
+        YValues.Order = loNone
+      end
+    end
+    object Chart2: TChart
+      Left = 302
+      Top = 5
+      Width = 484
+      Height = 173
+      Title.Text.Strings = (
+        'Produtos Cadastrados')
+      View3D = False
+      View3DOptions.Elevation = 315
+      View3DOptions.Orthogonal = False
+      View3DOptions.Perspective = 0
+      View3DOptions.Rotation = 360
+      ParentColor = True
+      TabOrder = 2
+      DefaultCanvas = 'TGDIPlusCanvas'
+      PrintMargins = (
+        15
+        24
+        15
+        24)
+      ColorPaletteIndex = 13
+      object Series2: TPieSeries
+        XValues.Order = loAscending
+        YValues.Name = 'Pie'
+        YValues.Order = loNone
+        Frame.InnerBrush.BackColor = clRed
+        Frame.InnerBrush.Gradient.EndColor = clGray
+        Frame.InnerBrush.Gradient.MidColor = clWhite
+        Frame.InnerBrush.Gradient.StartColor = 4210752
+        Frame.InnerBrush.Gradient.Visible = True
+        Frame.MiddleBrush.BackColor = clYellow
+        Frame.MiddleBrush.Gradient.EndColor = 8553090
+        Frame.MiddleBrush.Gradient.MidColor = clWhite
+        Frame.MiddleBrush.Gradient.StartColor = clGray
+        Frame.MiddleBrush.Gradient.Visible = True
+        Frame.OuterBrush.BackColor = clGreen
+        Frame.OuterBrush.Gradient.EndColor = 4210752
+        Frame.OuterBrush.Gradient.MidColor = clWhite
+        Frame.OuterBrush.Gradient.StartColor = clSilver
+        Frame.OuterBrush.Gradient.Visible = True
+        Frame.Width = 4
+        OtherSlice.Legend.Visible = False
+      end
     end
   end
   object DataSource1: TDataSource

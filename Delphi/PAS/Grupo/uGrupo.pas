@@ -5,7 +5,9 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uRaiz, Vcl.StdCtrls, Vcl.ExtCtrls,
-  Data.DB, Vcl.Grids, Vcl.DBGrids, Vcl.Buttons, uGrupo_db;
+  Data.DB, Vcl.Grids, Vcl.DBGrids, Vcl.Buttons, uGrupo_db, Vcl.OleCtrls, SHDocVw,
+  MOZILLACONTROLLib_TLB, VclTee.TeeGDIPlus, VCLTee.TeEngine, VCLTee.Series,
+  VCLTee.TeeProcs, VCLTee.Chart;
 
 type
   TfrmGrupo = class(TfrmRaiz)
@@ -13,6 +15,10 @@ type
     btnNovo: TSpeedButton;
     btnInativar: TSpeedButton;
     DataSource1: TDataSource;
+    Chart1: TChart;
+    Series1: TBarSeries;
+    Chart2: TChart;
+    Series2: TPieSeries;
     procedure btnNovoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
