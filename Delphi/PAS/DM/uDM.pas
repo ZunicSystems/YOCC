@@ -10,6 +10,13 @@ type
   TDM = class(TDataModule)
     Conexao: TADOConnection;
     qryCor: TADOQuery;
+    qryGrupo: TADOQuery;
+    qryColecao: TADOQuery;
+    DS_Cor: TDataSource;
+    DS_Grupo: TDataSource;
+    DS_Colecao: TDataSource;
+    qryFornecedor: TADOQuery;
+    DS_Fornecedor: TDataSource;
     procedure ConexaoWillExecute(Connection: TADOConnection;
       var CommandText: WideString; var CursorType: TCursorType;
       var LockType: TADOLockType; var CommandType: TCommandType;
@@ -17,6 +24,7 @@ type
       const Command: _Command; const Recordset: _Recordset);
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
+    procedure doOpenQuery();
   private
     { Private declarations }
   public
@@ -57,11 +65,26 @@ end;
 procedure TDM.DataModuleCreate(Sender: TObject);
 begin
    frmTentandoReconectar := tfrmTentandoReconectar.Create(Self);
+   // Conexão com o banco de dados
+   Conexao.Close;
+   Conexao.ConnectionString := 'FILE NAME=' + ExtractFilePath(Application.ExeName) + 'Base.udl';
+   Conexao.Open;
+
+   //Abre as querys
+   doOpenQuery();
 end;
 
 procedure TDM.DataModuleDestroy(Sender: TObject);
 begin
    FreeAndNil(frmTentandoReconectar);
+end;
+
+procedure TDM.doOpenQuery;
+begin
+   qryCor.Open;
+   qryGrupo.Open;
+   qryColecao.Open;
+   qryFornecedor.Open;
 end;
 
 end.

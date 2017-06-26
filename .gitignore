@@ -6,3 +6,4 @@ SQL
 *.udl
 *.~*
 __recovery
+*.bak

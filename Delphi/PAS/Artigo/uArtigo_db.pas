@@ -36,7 +36,7 @@ type TArtigoDB = class(TObject)
       procedure doCarregaForm(Tela : TForm);
       procedure doGrava();
       procedure doCancelaAlteracao();
-      procedure doAbreDados();
+      procedure doAbreDados(vReferencia: String = ''; vNome : String = '';iFornecedor: Integer = 0; iGrupo: Integer = 0; iColecao : Integer = 0);
       procedure setModoEdicao(modo : String);
       function getModoEdicao():String;
       constructor Create(FormLOG : TForm);
@@ -115,7 +115,9 @@ begin
    FreeAndNil(sProcedure);
 end;
 
-procedure TArtigoDB.doAbreDados;
+procedure TArtigoDB.doAbreDados(vReferencia: String = ''; vNome : String = '';
+                                 iFornecedor: Integer = 0; iGrupo: Integer = 0;
+                                 iColecao : Integer = 0);
 begin
    {:: dados que serão exibidos no DBGRID ::}
    with qryPrincipal, qryPrincipal.SQL do
@@ -137,6 +139,21 @@ begin
       Add('LEFT JOIN dbo.Fornecedor Forn ON(Forn.ID = A.FK_IDFornecedor)');
       Add('WHERE');
       Add('      A.bDeletado = 0');
+      if vReferencia <> '' then
+         Add('AND A.vReferencia LIKE ''%'+ vReferencia +'%''  ');
+
+      if vNome <> '' then
+         Add('AND A.vNome LIKE ''%'+ vNome +'%'' ');
+
+      if iFornecedor <> 0 then
+         Add('AND A.FK_IDFornecedor = '+ IntToStr(iFornecedor));
+
+      if iGrupo <> 0 then
+         Add('AND A.FK_IDRGrupo = '+ IntToStr(iGrupo));
+
+      if iColecao <> 0 then
+         Add('AND A.FK_IDRColecao = '+ IntToStr(iColecao));
+
       Open;
    end;
 

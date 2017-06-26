@@ -5,12 +5,8 @@ object DM: TDM
   Height = 441
   Width = 805
   object Conexao: TADOConnection
-    Connected = True
-    ConnectionString = 
-      'FILE NAME=C:\Users\alexd\Documents\Zunic\YOCC\Delphi\EXE\DEBUG\B' +
-      'ase.udl'
     LoginPrompt = False
-    Provider = 'SQLOLEDB.1'
+    Provider = 'C:\Users\alexd\Documents\Zunic\YOCC\Delphi\EXE\DEBUG\Base.udl'
     OnWillExecute = ConexaoWillExecute
     Left = 56
     Top = 24
@@ -18,7 +14,55 @@ object DM: TDM
   object qryCor: TADOQuery
     Connection = Conexao
     Parameters = <>
-    Left = 64
-    Top = 112
+    SQL.Strings = (
+      'SELECT ID, vNome, dCriacao, bDeletado FROM dbo.RCor')
+    Left = 368
+    Top = 24
+  end
+  object qryGrupo: TADOQuery
+    Connection = Conexao
+    Parameters = <>
+    SQL.Strings = (
+      'SELECT ID, vNome, dCriacao, bDeletado FROM dbo.RGrupo')
+    Left = 424
+    Top = 24
+  end
+  object qryColecao: TADOQuery
+    Connection = Conexao
+    Parameters = <>
+    SQL.Strings = (
+      'SELECT ID, vNome, dCriacao, bDeletado FROM dbo.RColecao')
+    Left = 480
+    Top = 24
+  end
+  object DS_Cor: TDataSource
+    DataSet = qryCor
+    Left = 368
+    Top = 80
+  end
+  object DS_Grupo: TDataSource
+    DataSet = qryGrupo
+    Left = 424
+    Top = 80
+  end
+  object DS_Colecao: TDataSource
+    DataSet = qryColecao
+    Left = 480
+    Top = 81
+  end
+  object qryFornecedor: TADOQuery
+    Connection = Conexao
+    Parameters = <>
+    SQL.Strings = (
+      'SELECT ID, vRazaoSocial, vNomeFantasia '
+      'FROM dbo.Fornecedor'
+      'WHERE ISNULL(bDeletado,0) = 0')
+    Left = 560
+    Top = 24
+  end
+  object DS_Fornecedor: TDataSource
+    DataSet = qryFornecedor
+    Left = 560
+    Top = 80
   end
 end

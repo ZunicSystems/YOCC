@@ -11,7 +11,7 @@ inherited frmGrupo: TfrmGrupo
     Width = 796
     ExplicitWidth = 796
     inherited Label1: TLabel
-      Width = 794
+      Width = 49
       Caption = 'Grupo'
       ExplicitWidth = 49
     end
@@ -215,6 +215,10 @@ inherited frmGrupo: TfrmGrupo
       Height = 173
       Title.Text.Strings = (
         'Produtos Cadastrados')
+      View3DOptions.Elevation = 315
+      View3DOptions.Orthogonal = False
+      View3DOptions.Perspective = 0
+      View3DOptions.Rotation = 360
       ParentColor = True
       TabOrder = 2
       DefaultCanvas = 'TGDIPlusCanvas'
@@ -223,6 +227,7 @@ inherited frmGrupo: TfrmGrupo
         24
         15
         24)
+      ColorPaletteIndex = 13
       object Series2: TPieSeries
         XValues.Order = loAscending
         YValues.Name = 'Pie'

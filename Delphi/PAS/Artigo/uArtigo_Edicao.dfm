@@ -20,7 +20,7 @@ inherited frmArtigo_Edicao: TfrmArtigo_Edicao
       Top = 316
       Width = 75
       Height = 30
-      Caption = 'btnSair'
+      Caption = 'Sair'
       TabOrder = 0
       OnClick = btnSairClick
     end
@@ -29,7 +29,7 @@ inherited frmArtigo_Edicao: TfrmArtigo_Edicao
       Top = 316
       Width = 75
       Height = 30
-      Caption = 'btnAlterar'
+      Caption = 'Alterar'
       TabOrder = 1
       OnClick = btnAlterarClick
     end
@@ -38,17 +38,17 @@ inherited frmArtigo_Edicao: TfrmArtigo_Edicao
       Top = 316
       Width = 75
       Height = 30
-      Caption = 'btnCancelar'
+      Caption = 'Cancelar'
       Enabled = False
       TabOrder = 2
       OnClick = btnCancelarClick
     end
     object btnSalvar: TBitBtn
       Left = 91
-      Top = 315
+      Top = 316
       Width = 75
       Height = 30
-      Caption = 'btnSalvar'
+      Caption = 'Salvar'
       Enabled = False
       TabOrder = 3
       OnClick = btnSalvarClick
@@ -153,6 +153,9 @@ inherited frmArtigo_Edicao: TfrmArtigo_Edicao
           Top = 144
           Width = 461
           Height = 21
+          KeyField = 'ID'
+          ListField = 'vRazaoSocial'
+          ListSource = DM.DS_Fornecedor
           TabOrder = 0
         end
         object iCor: TDBLookupComboBox
@@ -162,6 +165,9 @@ inherited frmArtigo_Edicao: TfrmArtigo_Edicao
           Height = 21
           Color = clBtnFace
           Enabled = False
+          KeyField = 'ID'
+          ListField = 'vNome'
+          ListSource = DM.DS_Cor
           ReadOnly = True
           TabOrder = 1
           TabStop = False
@@ -171,6 +177,9 @@ inherited frmArtigo_Edicao: TfrmArtigo_Edicao
           Top = 178
           Width = 205
           Height = 21
+          KeyField = 'ID'
+          ListField = 'vNome'
+          ListSource = DM.DS_Colecao
           TabOrder = 2
         end
         object iGrupo: TDBLookupComboBox
@@ -178,6 +187,9 @@ inherited frmArtigo_Edicao: TfrmArtigo_Edicao
           Top = 178
           Width = 174
           Height = 21
+          KeyField = 'ID'
+          ListField = 'vNome'
+          ListSource = DM.DS_Grupo
           TabOrder = 3
         end
         object DateTimePicker1: TDateTimePicker
@@ -215,6 +227,7 @@ inherited frmArtigo_Edicao: TfrmArtigo_Edicao
           Top = 43
           Width = 54
           Height = 21
+          Color = clBtnFace
           EditLabel.Width = 68
           EditLabel.Height = 15
           EditLabel.Caption = 'Referencia :'

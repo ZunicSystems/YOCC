@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uRaiz_Edicao, Vcl.ExtCtrls, Vcl.StdCtrls,
   Vcl.DBCtrls, Vcl.Buttons, Vcl.Mask, uFuncoes, Vcl.ComCtrls, Data.DB, uFuncoesBD,
-  Vcl.Grids, Vcl.DBGrids, Vcl.Menus, Vcl.ExtDlgs, JPEG, Data.Win.ADODB;
+  Vcl.Grids, Vcl.DBGrids, Vcl.Menus, Vcl.ExtDlgs, JPEG, Data.Win.ADODB, uDM;
 
 type
   TfrmArtigo_Edicao = class(TfrmRaiz_Edicao)
@@ -55,9 +55,7 @@ type
     procedure btnAlterarClick(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
-    procedure btnSairClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    function getPrimeiraEdicao():boolean;
     procedure FormCreate(Sender: TObject);
     procedure btnTamanhosClick(Sender: TObject);
     procedure Image1Click(Sender: TObject);
@@ -69,6 +67,7 @@ type
     procedure Image1MouseEnter(Sender: TObject);
     procedure Image1MouseLeave(Sender: TObject);
     procedure doRedimencionaTImagem(AumentaDiminui:boolean;nPixel : integer);
+    procedure btnSairClick(Sender: TObject);
   private
     { Private declarations }
     Source : TParameter;
@@ -83,7 +82,7 @@ implementation
 
 {$R *.dfm}
 
-uses uArtigo, uVariaveis, uArtigo_Edicao_Tamanho, uFuncoesImagem, uDM;
+uses uArtigo, uVariaveis, uArtigo_Edicao_Tamanho, uFuncoesImagem;
 
 procedure TfrmArtigo_Edicao.btnAlterarClick(Sender: TObject);
 begin
@@ -215,24 +214,6 @@ begin
          MS.Free;
          Jpeg.Free;
       end;
-   end;
-end;
-
-function TfrmArtigo_Edicao.getPrimeiraEdicao():boolean;
-begin
-   {:: Se o modo esta em primeira EDICAO clica automaticamente em ALTERAR ::}
-   if uArtigo.artigoDB.getModoEdicao() = 'cria' then
-   begin
-      vReferencia.Color := clWindow;
-      iCor.Color := clWindow;
-      btnAlterarClick(Self);
-      Result := True;
-   end
-   else
-   begin
-      vReferencia.Color := clBtnFace;
-      iCor.Color := clBtnFace;
-      Result := False;
    end;
 end;
 

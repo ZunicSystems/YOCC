@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uRaiz, Vcl.StdCtrls, Vcl.ExtCtrls,
   Data.DB, Vcl.Grids, Vcl.DBGrids, Vcl.Buttons, uGrupo_db, Vcl.OleCtrls, SHDocVw,
-  MOZILLACONTROLLib_TLB, VclTee.TeeGDIPlus, VCLTee.TeEngine, VCLTee.Series,
+  VclTee.TeeGDIPlus, VCLTee.TeEngine, VCLTee.Series,
   VCLTee.TeeProcs, VCLTee.Chart;
 
 type
