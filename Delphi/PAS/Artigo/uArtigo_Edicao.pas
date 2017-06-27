@@ -130,8 +130,6 @@ begin
    Image1.PopupMenu := nil;
    pnlImage.PopupMenu := nil;
 
-   getPrimeiraEdicao();
-
    uArtigo.artigoDB.doGrava();
 end;
 
@@ -364,8 +362,6 @@ begin
    btnSalvar.Enabled := False;
    btnCancelar.Enabled := False;
    btnSair.Enabled := True;
-
-   getPrimeiraEdicao();
 
    getFoto();
 end;

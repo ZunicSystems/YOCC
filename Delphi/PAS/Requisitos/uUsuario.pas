@@ -25,6 +25,7 @@ type TUsuario = Class(TObject)
       fsIP : String;
       fsHost : String;
       fsTema : Integer;
+      fsFilialAtual : Integer;
       fsConfigGrids : TADOQuery;
       function getIPExtreno() : String;
       function getNomeComputador(): String;
@@ -52,6 +53,8 @@ type TUsuario = Class(TObject)
       function getIP() : String;
       function getHost() : String;
       function getTema() : Integer;
+      function getFilialAtual() : Integer;
+      procedure setFilialAtual(Filial : Integer);
       procedure setConfigGrid(Form : TForm; Grid :TDBGrid);
       procedure doConfigGrid(Form : TForm; Grid :TDBGrid);
 End;
@@ -233,6 +236,11 @@ begin
    fsConfigGrids := getConfigGrids(fsID);
 end;
 
+procedure TUsuario.setFilialAtual(Filial: Integer);
+begin
+   fsFilialAtual := Filial;
+end;
+
 function TUsuario.getConfigGrids(IDUsuario: Integer): TADOQuery;
 var
    qryGrids : TADOQuery;
@@ -296,6 +304,11 @@ end;
 function TUsuario.getEndereco: String;
 begin
    Result := fsEndereco;
+end;
+
+function TUsuario.getFilialAtual: Integer;
+begin
+   Result := fsFilialAtual;
 end;
 
 function TUsuario.getHost: String;

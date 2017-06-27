@@ -3,7 +3,6 @@ inherited frmArtigo: TfrmArtigo
   ClientHeight = 515
   ClientWidth = 1093
   OnClose = FormClose
-  ExplicitLeft = -74
   ExplicitWidth = 1093
   ExplicitHeight = 515
   PixelsPerInch = 96

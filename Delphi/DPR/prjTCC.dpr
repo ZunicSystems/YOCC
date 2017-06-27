@@ -29,7 +29,8 @@ uses
   uArtigo_Criacao in '..\PAS\Artigo\uArtigo_Criacao.pas' {frmArtigo_Criacao},
   uGrupo in '..\PAS\Grupo\uGrupo.pas' {frmGrupo},
   uGrupo_Edicao in '..\PAS\Grupo\uGrupo_Edicao.pas' {frmGrupo_Edicao},
-  uGrupo_db in '..\PAS\Grupo\uGrupo_db.pas';
+  uGrupo_db in '..\PAS\Grupo\uGrupo_db.pas',
+  uSelecaoFilial in 'uSelecaoFilial.pas' {frmSelecaoFilial};
 
 {$R *.res}
 

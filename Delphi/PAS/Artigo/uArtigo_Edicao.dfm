@@ -54,8 +54,8 @@ inherited frmArtigo_Edicao: TfrmArtigo_Edicao
       OnClick = btnSalvarClick
     end
     object PageControl1: TPageControl
-      Left = 8
-      Top = 6
+      Left = 10
+      Top = 7
       Width = 593
       Height = 303
       ActivePage = tabTecnica
@@ -227,6 +227,7 @@ inherited frmArtigo_Edicao: TfrmArtigo_Edicao
           Top = 43
           Width = 54
           Height = 21
+          CharCase = ecUpperCase
           Color = clBtnFace
           EditLabel.Width = 68
           EditLabel.Height = 15

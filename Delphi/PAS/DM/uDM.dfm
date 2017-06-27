@@ -65,4 +65,15 @@ object DM: TDM
     Left = 560
     Top = 80
   end
+  object qryFilial: TADOQuery
+    Connection = Conexao
+    Parameters = <>
+    Left = 640
+    Top = 24
+  end
+  object DS_Filial: TDataSource
+    DataSet = qryFilial
+    Left = 640
+    Top = 80
+  end
 end

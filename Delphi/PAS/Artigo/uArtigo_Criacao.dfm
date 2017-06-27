@@ -220,6 +220,7 @@ inherited frmArtigo_Criacao: TfrmArtigo_Criacao
         Top = 18
         Width = 54
         Height = 21
+        CharCase = ecUpperCase
         EditLabel.Width = 68
         EditLabel.Height = 15
         EditLabel.Caption = 'Referencia :'

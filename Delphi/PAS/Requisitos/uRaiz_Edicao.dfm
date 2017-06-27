@@ -13,6 +13,7 @@ object frmRaiz_Edicao: TfrmRaiz_Edicao
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poScreenCenter
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
@@ -25,9 +26,5 @@ object frmRaiz_Edicao: TfrmRaiz_Edicao
     Color = 16055807
     ParentBackground = False
     TabOrder = 0
-    ExplicitLeft = 176
-    ExplicitTop = 176
-    ExplicitWidth = 185
-    ExplicitHeight = 41
   end
 end

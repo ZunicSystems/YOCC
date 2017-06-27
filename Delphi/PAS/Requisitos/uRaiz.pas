@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons,
-  uPrincipal, Vcl.DBGrids;
+  uPrincipal, Vcl.DBGrids, Data.Win.ADODB;
 
 type
   TfrmRaiz = class(TForm)
@@ -16,6 +16,8 @@ type
     procedure setTema();
     procedure FormShow(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure DBGrid1TitleClick(Column: TColumn);
+    procedure doOrdenaGrid(Column: TColumn);
   private
     { Private declarations }
   public
@@ -30,6 +32,24 @@ implementation
 {$R *.dfm}
 
 uses uTema;
+
+procedure TfrmRaiz.DBGrid1TitleClick(Column: TColumn);
+begin
+   //Ordena a coluna do Grid que foi clicada
+   doOrdenaGrid(Column);
+end;
+
+procedure TfrmRaiz.doOrdenaGrid(Column: TColumn);
+begin
+   if (TADOQuery(Column.Grid.DataSource.DataSet).Sort <> Column.FieldName + ' ASC') then
+   begin
+      TADOQuery(Column.Grid.DataSource.DataSet).Sort := Column.FieldName + ' ASC';
+   end
+   else
+   begin
+      TADOQuery(Column.Grid.DataSource.DataSet).Sort := Column.FieldName + ' DESC';
+   end;
+end;
 
 procedure TfrmRaiz.FormCreate(Sender: TObject);
 begin
@@ -58,6 +78,7 @@ begin
     if Self.Components[i] is TDBGrid then
     begin
       uPrincipal.Usuario.doConfigGrid(Self,TDBGrid(Self.Components[i]));
+      TDBGrid(Self.Components[i]).OnTitleClick := DBGrid1TitleClick;
     end;
   end;
 end;

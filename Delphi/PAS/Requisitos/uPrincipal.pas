@@ -20,12 +20,11 @@ type
     procedure FormShow(Sender: TObject);
     procedure btnMinimizaClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure btnMinimizaMenuClick(Sender: TObject);
-    procedure MinimizaMenu;
     procedure doCarregaMenu();
     procedure setTema();
     procedure doRegistraForm();
     procedure btnFinalizarClick(Sender: TObject);
+    procedure doShowSelecaoFilial();
   private
       Menu : TMenu;
     { Private declarations }
@@ -41,7 +40,7 @@ implementation
 
 {$R *.dfm}
 
-uses uDM,uTema, uRaiz, uArtigo, uFornecedor, uGrupo;
+uses uDM,uTema, uRaiz, uArtigo, uFornecedor, uGrupo, uSelecaoFilial;
 
 procedure TfrmPrincipal.AjustaTamanhoTela;
 begin
@@ -65,20 +64,10 @@ end;
 procedure TfrmPrincipal.FormShow(Sender: TObject);
 begin
    AjustaTamanhoTela();
-end;
+   //Abre as querys genericas
+   DM.doOpenQuery();
 
-procedure TfrmPrincipal.MinimizaMenu();
-begin
-//   if pnlMenu.Width = 0 then
-//   begin
-//      pnlMenu.Width := 170;
-//      btnMinimizaMenu.Caption := '<<';
-//   end
-//   else
-//   begin
-//      pnlMenu.Width := 0;
-//      btnMinimizaMenu.Caption := '>>';
-//   end;
+   doShowSelecaoFilial();
 end;
 
 procedure TfrmPrincipal.setTema;
@@ -93,11 +82,6 @@ end;
 procedure TfrmPrincipal.btnFinalizarClick(Sender: TObject);
 begin
    Application.Terminate();
-end;
-
-procedure TfrmPrincipal.btnMinimizaMenuClick(Sender: TObject);
-begin
-   //MinimizaMenu();
 end;
 
 procedure TfrmPrincipal.doCarregaMenu;
@@ -128,6 +112,13 @@ begin
    RegisterClass(TfrmArtigo);
    RegisterClass(TfrmFornecedor);
    RegisterClass(TfrmGrupo);
+end;
+
+procedure TfrmPrincipal.doShowSelecaoFilial;
+begin
+   frmSelecaoFilial := TfrmSelecaoFilial.Create(Self);
+   frmSelecaoFilial.ShowModal;
+   frmSelecaoFilial.DisposeOf;
 end;
 
 end.

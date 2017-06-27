@@ -17,6 +17,8 @@ type
     DS_Colecao: TDataSource;
     qryFornecedor: TADOQuery;
     DS_Fornecedor: TDataSource;
+    qryFilial: TADOQuery;
+    DS_Filial: TDataSource;
     procedure ConexaoWillExecute(Connection: TADOConnection;
       var CommandText: WideString; var CursorType: TCursorType;
       var LockType: TADOLockType; var CommandType: TCommandType;
@@ -38,7 +40,7 @@ implementation
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
-uses uTentandoReconectar;
+uses uTentandoReconectar, uPrincipal;
 
 {$R *.dfm}
 
@@ -69,9 +71,6 @@ begin
    Conexao.Close;
    Conexao.ConnectionString := 'FILE NAME=' + ExtractFilePath(Application.ExeName) + 'Base.udl';
    Conexao.Open;
-
-   //Abre as querys
-   doOpenQuery();
 end;
 
 procedure TDM.DataModuleDestroy(Sender: TObject);
@@ -81,10 +80,28 @@ end;
 
 procedure TDM.doOpenQuery;
 begin
+   // Cor
    qryCor.Open;
+   //Grupo
    qryGrupo.Open;
+   //Colecao
    qryColecao.Open;
+   //Fornecedor
    qryFornecedor.Open;
+
+   {::Filial}
+   with qryFilial, qryFilial.SQL do begin
+      Close;
+      Clear;
+      Add('SELECT RF.ID,RF.vRazaoSocial, RF.vNomeFantasia');
+      Add('FROM dbo.RFilial RF');
+      Add('INNER JOIN dbo.RUsuario_NN_RFilial RUF ON (RF.ID = RUF.FK_iIDFilial)');
+      Add('INNER JOIN dbo.RUsuario RU ON (RU.ID = RUF.FK_iIDUsuario)');
+      Add('WHERE RU.ID = :ID');
+
+      Parameters.ParamByName('ID').Value := uPrincipal.Usuario.getIDUsuario();
+      Open;
+   end;
 end;
 
 end.
