@@ -83,6 +83,7 @@ procedure TfrmArtigo.btnAlterarClick(Sender: TObject);
 begin
   inherited;
    frmArtigo_Edicao := TfrmArtigo_Edicao.Create(Self);
+   artigoDB.setModoEdicao('edita');
    artigoDB.doCarregaForm(frmArtigo_Edicao);
    frmArtigo_Edicao.ShowModal;
    frmArtigo_Edicao.DisposeOf;
@@ -93,6 +94,7 @@ procedure TfrmArtigo.btnCriarClick(Sender: TObject);
 begin
   inherited;
    frmArtigo_Criacao := TfrmArtigo_Criacao.Create(Self);
+   artigoDB.setModoEdicao('cria');
    frmArtigo_Criacao.ShowModal;
    frmArtigo_Criacao.DisposeOf;
 end;

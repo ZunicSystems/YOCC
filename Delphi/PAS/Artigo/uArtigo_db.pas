@@ -1,9 +1,5 @@
 {::
-   AO COPIAR PARA OUTRA TELA:
-   1 - LEMBRAR DE INCLUIR A CONSTANTE 'NOMEPROCEDURE' PARA O NOME DESEJADO.
-   2 - LEMBRAR DE INCLUIR NA SUA PROCEDURE O CAMPO 'ID' e 'RETORNO'
-   3 - LEMBRAR DE INCLUIR O [doAbreDados] -- Dados que aparecem no grid
-   4 - LEMBRAR DE INCLUIR O [doCarregaRegistro] -- Dados que aparecem no grid + dados da tabela base
+   Exclusivo para produto
 ::}
 unit uArtigo_db;
 
@@ -11,7 +7,7 @@ interface
 uses
    Winapi.Windows, Winapi.Messages, Data.Win.ADODB, Data.DB, System.SysUtils,
    System.Variants, System.Classes, uFuncoesBD, Vcl.Forms, Vcl.Dialogs, Vcl.Graphics,
-   Vcl.Controls, Vcl.ExtCtrls;
+   Vcl.Controls, Vcl.ExtCtrls, Vcl.DBCtrls;
 
 type TArtigoDB = class(TObject)
    sProcedure : TADOStoredProc;
@@ -24,7 +20,6 @@ type TArtigoDB = class(TObject)
       Source : TParameter;
       procedure doCarregaRegistro();
       procedure doAltera();
-      procedure doInsere();
       procedure doCriaQuery();
       procedure doCriaSP();
       procedure getErro();
@@ -38,9 +33,11 @@ type TArtigoDB = class(TObject)
       procedure doCancelaAlteracao();
       procedure doAbreDados(vReferencia: String = ''; vNome : String = '';iFornecedor: Integer = 0; iGrupo: Integer = 0; iColecao : Integer = 0);
       procedure setModoEdicao(modo : String);
+      procedure setForm(Tela : TForm);
       function getModoEdicao():String;
       constructor Create(FormLOG : TForm);
       destructor Destroy();
+      procedure doInsere(iCor : Integer);
    const
       NOMEPROCEDURE : String = 'pArtigo;1';
 end;
@@ -212,25 +209,45 @@ end;
 
 procedure TArtigoDB.doGrava();
 begin
-   {:: EDITA ou GRAVA ::}
-   if fsModoEdicao = 'edita' then
-   begin
-      doAltera();
-   end;
-
-   if fsModoEdicao = 'cria' then
-   begin
-      doInsere();
-      setModoEdicao('edita');
-   end;
+   {:: EDITA ::}
+   doAltera();
 
    doCarregaRegistro();
    doRefreshTela();
 end;
 
-procedure TArtigoDB.doInsere;
+procedure TArtigoDB.doInsere(iCor : Integer);
 begin
-   ERPparaDB(sProcedure, fsForm, 'C', qryPrincipal);
+   Zera_Parameter(sProcedure);
+
+   Source := sProcedure.Parameters.FindParam('@V_vReferencia');
+   Source.Value := TLabeledEdit(fsForm.FindComponent('vReferencia')).Text;
+
+   Source := sProcedure.Parameters.FindParam('@V_vNome');
+   Source.Value := TLabeledEdit(fsForm.FindComponent('vNome')).Text;
+
+   Source := sProcedure.Parameters.FindParam('@V_vNCM');
+   Source.Value := TLabeledEdit(fsForm.FindComponent('vNCM')).Text;
+
+   Source := sProcedure.Parameters.FindParam('@V_vCST');
+   Source.Value := TLabeledEdit(fsForm.FindComponent('vCST')).Text;
+
+   Source := sProcedure.Parameters.FindParam('@V_vUnidade');
+   Source.Value := TLabeledEdit(fsForm.FindComponent('vUnidade')).Text;
+
+   Source := sProcedure.Parameters.FindParam('@V_FK_IDFornecedor');
+   Source.Value := TDBLookupComboBox(fsForm.FindComponent('FK_IDFornecedor')).KeyValue;
+
+   Source := sProcedure.Parameters.FindParam('@V_FK_IDRColecao');
+   Source.Value := TDBLookupComboBox(fsForm.FindComponent('FK_IDRColecao')).KeyValue;
+
+   Source := sProcedure.Parameters.FindParam('@V_FK_IDRGrupo');
+   Source.Value := TDBLookupComboBox(fsForm.FindComponent('FK_IDRGrupo')).KeyValue;
+
+   Source := sProcedure.Parameters.FindParam('@V_FK_IDRCor');
+   Source.Value :=  iCor;
+
+   ExecutaStoredProc(sProcedure);
 
    getErro();
 
@@ -270,6 +287,11 @@ begin
 
    Source := sProcedure.Parameters.FindParam('@V_Retorno');
    if Source <> nil then Result := LowerCase(Source.Value);
+end;
+
+procedure TArtigoDB.setForm(Tela: TForm);
+begin
+   fsForm := Tela;
 end;
 
 procedure TArtigoDB.setModoEdicao(modo : String);

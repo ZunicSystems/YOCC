@@ -2,7 +2,6 @@ inherited frmArtigo_Edicao: TfrmArtigo_Edicao
   Caption = ''
   ClientHeight = 352
   ClientWidth = 607
-  Position = poScreenCenter
   OnShow = FormShow
   ExplicitWidth = 613
   ExplicitHeight = 381
@@ -11,8 +10,6 @@ inherited frmArtigo_Edicao: TfrmArtigo_Edicao
   inherited pnlWorkArea: TPanel
     Width = 607
     Height = 352
-    ExplicitLeft = 0
-    ExplicitTop = 0
     ExplicitWidth = 607
     ExplicitHeight = 352
     object btnSair: TBitBtn
@@ -148,7 +145,7 @@ inherited frmArtigo_Edicao: TfrmArtigo_Edicao
           Font.Style = [fsBold]
           ParentFont = False
         end
-        object iFornecedor: TDBLookupComboBox
+        object FK_IDFornecedor: TDBLookupComboBox
           Left = 98
           Top = 144
           Width = 461
@@ -158,7 +155,7 @@ inherited frmArtigo_Edicao: TfrmArtigo_Edicao
           ListSource = DM.DS_Fornecedor
           TabOrder = 0
         end
-        object iCor: TDBLookupComboBox
+        object FK_IDRCor: TDBLookupComboBox
           Left = 209
           Top = 43
           Width = 174
@@ -172,7 +169,7 @@ inherited frmArtigo_Edicao: TfrmArtigo_Edicao
           TabOrder = 1
           TabStop = False
         end
-        object iColecao: TDBLookupComboBox
+        object FK_IDRColecao: TDBLookupComboBox
           Left = 354
           Top = 178
           Width = 205
@@ -182,7 +179,7 @@ inherited frmArtigo_Edicao: TfrmArtigo_Edicao
           ListSource = DM.DS_Colecao
           TabOrder = 2
         end
-        object iGrupo: TDBLookupComboBox
+        object FK_IDRGrupo: TDBLookupComboBox
           Left = 98
           Top = 178
           Width = 174

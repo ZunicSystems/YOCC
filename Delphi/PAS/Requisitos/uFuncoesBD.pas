@@ -131,6 +131,7 @@ var
   i, j : Integer;
 begin
    Zera_Parameter(pStored);
+
    for i := 0 to frmERP.ComponentCount-1 do
    begin
       {::Localizar o Parametro na Stored Procedure::}

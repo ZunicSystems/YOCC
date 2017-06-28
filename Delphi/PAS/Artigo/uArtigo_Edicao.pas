@@ -22,10 +22,10 @@ type
     Label6: TLabel;
     Label7: TLabel;
     Label8: TLabel;
-    iFornecedor: TDBLookupComboBox;
-    iCor: TDBLookupComboBox;
-    iColecao: TDBLookupComboBox;
-    iGrupo: TDBLookupComboBox;
+    FK_IDFornecedor: TDBLookupComboBox;
+    FK_IDRCor: TDBLookupComboBox;
+    FK_IDRColecao: TDBLookupComboBox;
+    FK_IDRGrupo: TDBLookupComboBox;
     DateTimePicker1: TDateTimePicker;
     ID: TLabeledEdit;
     vReferencia: TLabeledEdit;

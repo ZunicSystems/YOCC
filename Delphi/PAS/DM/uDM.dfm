@@ -15,7 +15,7 @@ object DM: TDM
     Connection = Conexao
     Parameters = <>
     SQL.Strings = (
-      'SELECT ID, vNome, dCriacao, bDeletado FROM dbo.RCor')
+      'SELECT ID, vNome, dCriacao, bDeletado  FROM dbo.RCor')
     Left = 368
     Top = 24
   end
