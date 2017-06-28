@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uRaiz_Edicao, Vcl.ExtCtrls, Vcl.StdCtrls,
   Vcl.DBCtrls, Data.DB, Vcl.Grids, Vcl.DBGrids, Vcl.Buttons, Datasnap.DBClient,
-  uDM, Math;
+  uDM, Math, Data.Win.ADODB;
 
 type
   TfrmArtigo_Criacao = class(TfrmRaiz_Edicao)
@@ -52,6 +52,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure doPreencheCds;
     function doVerificaCamposObrigatorios():Boolean;
+    procedure doInformacaoReferencia(Ref : String);
   private
     { Private declarations }
   public
@@ -221,6 +222,23 @@ begin
       R := Rect;
       InflateRect(R, -2, -2); { Diminue o tamanho do CheckBox }
       DrawFrameControl(DBGrid1.Canvas.Handle, R, DFC_BUTTON, DFCS_BUTTONCHECK or Check);
+   end;
+
+end;
+
+procedure TfrmArtigo_Criacao.doInformacaoReferencia(Ref: String);
+var
+   qryRef : TADOQuery;
+begin
+   qryRef := TADOQuery.Create(Self);
+   qryRef.Connection := DM.Conexao;
+
+   with qryRef, qryRef.SQL do begin
+      Close;
+      Clear;
+      Add('SELECT TOP 1  A.vReferencia, A.vNome, A.vNCM, A.vCST, A.vUnidade, A.FK_IDFornecedor, A.FK_IDRColecao, A.FK_IDRGrupo');
+      Add('FROM dbo.Artigo A WHERE A.vReferencia = ' + QuotedStr(Ref));
+      Open;
    end;
 
 end;
