@@ -232,6 +232,7 @@ inherited frmArtigo: TfrmArtigo
         Width = 71
         Height = 21
         TabOrder = 3
+        Text = 'BATATA'
       end
       object iColecao: TDBLookupComboBox
         Left = 635
