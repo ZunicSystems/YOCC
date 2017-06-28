@@ -88,24 +88,6 @@ inherited frmArtigo_Criacao: TfrmArtigo_Criacao
         Font.Style = [fsBold]
         ParentFont = False
       end
-      object vReferencia: TLabeledEdit
-        Left = 98
-        Top = 18
-        Width = 54
-        Height = 21
-        CharCase = ecUpperCase
-        EditLabel.Width = 68
-        EditLabel.Height = 15
-        EditLabel.Caption = 'Referencia :'
-        EditLabel.Font.Charset = ANSI_CHARSET
-        EditLabel.Font.Color = clWindowText
-        EditLabel.Font.Height = -12
-        EditLabel.Font.Name = 'Arial'
-        EditLabel.Font.Style = [fsBold]
-        EditLabel.ParentFont = False
-        LabelPosition = lpLeft
-        TabOrder = 0
-      end
       object vUnidade: TLabeledEdit
         Left = 98
         Top = 60
@@ -327,6 +309,23 @@ inherited frmArtigo_Criacao: TfrmArtigo_Criacao
         ListField = 'vNome'
         ListSource = DM.DS_Colecao
         TabOrder = 7
+      end
+      object vReferencia: TLabeledEdit
+        Left = 98
+        Top = 22
+        Width = 63
+        Height = 21
+        EditLabel.Width = 68
+        EditLabel.Height = 15
+        EditLabel.Caption = 'Refer'#234'ncia :'
+        EditLabel.Font.Charset = ANSI_CHARSET
+        EditLabel.Font.Color = clWindowText
+        EditLabel.Font.Height = -12
+        EditLabel.Font.Name = 'Arial'
+        EditLabel.Font.Style = [fsBold]
+        EditLabel.ParentFont = False
+        LabelPosition = lpLeft
+        TabOrder = 0
       end
     end
     object btnCriar: TBitBtn

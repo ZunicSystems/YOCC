@@ -6,12 +6,11 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uRaiz_Edicao, Vcl.ExtCtrls, Vcl.StdCtrls,
   Vcl.DBCtrls, Data.DB, Vcl.Grids, Vcl.DBGrids, Vcl.Buttons, Datasnap.DBClient,
-  uDM, Math, Data.Win.ADODB;
+  uDM, Math, Data.Win.ADODB, uFuncoes, uFuncoesBD;
 
 type
   TfrmArtigo_Criacao = class(TfrmRaiz_Edicao)
     Panel1: TPanel;
-    vReferencia: TLabeledEdit;
     vUnidade: TLabeledEdit;
     vNCM: TLabeledEdit;
     vCST: TLabeledEdit;
@@ -44,6 +43,7 @@ type
     cdsCoresDisponiveisNomeCor2: TStringField;
     cdsCoresDisponiveisNomeCor3: TStringField;
     cdsCoresDisponiveisNomeCor4: TStringField;
+    vReferencia: TLabeledEdit;
     procedure btnCriarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
@@ -53,6 +53,7 @@ type
     procedure doPreencheCds;
     function doVerificaCamposObrigatorios():Boolean;
     procedure doInformacaoReferencia(Ref : String);
+    procedure vReferenciaExit(Sender: TObject);
   private
     { Private declarations }
   public
@@ -241,26 +242,44 @@ begin
       Open;
    end;
 
+   if qryRef.RecordCount > 0 then
+      DBparaERP(qryRef, Self);
 end;
 
 procedure TfrmArtigo_Criacao.doPreencheCds;
 var
    MaiorWidth1, MaiorWidth2, MaiorWidth3, MaiorWidth4  : Integer;
+   qryCores : TADOQuery;
 begin
+   qryCores := TADOQuery.Create(Self);
+   qryCores.Connection := DM.Conexao;
 
-   DM.qryCor.First;
-   while not DM.qryCor.Eof do begin
+   with qryCores, qryCores.SQL do begin
+      Close;
+      Clear;
+      Add('SELECT RC.ID, RC.vNome');
+      Add('FROM dbo.RCor RC');
+      Add('WHERE ISNULL(bDeletado,0) = 0');
+      if vReferencia.Text <> '' then
+         Add('AND NOT EXISTS(SELECT * FROM dbo.Artigo A WHERE A.FK_IDRCor = RC.ID AND A.vReferencia = '+QuotedStr(vReferencia.Text)+')');
+      Open;
+   end;
+
+   cdsCoresDisponiveis.EmptyDataSet;
+
+   qryCores.First;
+   while not qryCores.Eof do begin
       //Coluna 1
       cdsCoresDisponiveis.Append;
       cdsCoresDisponiveisbSelecao1.Value := False;
-      cdsCoresDisponiveisID1.Value := DM.qryCor.Fields[0].AsInteger;
-      cdsCoresDisponiveisNomeCor1.Value := DM.qryCor.Fields[1].AsString;
+      cdsCoresDisponiveisID1.Value := qryCores.Fields[0].AsInteger;
+      cdsCoresDisponiveisNomeCor1.Value := qryCores.Fields[1].AsString;
 
-      MaiorWidth1 := IfThen(length(DM.qryCor.Fields[1].AsString) <  MaiorWidth1, MaiorWidth1,
-                                         length(DM.qryCor.Fields[1].AsString));
+      MaiorWidth1 := IfThen(length(qryCores.Fields[1].AsString) <  MaiorWidth1, MaiorWidth1,
+                                         length(qryCores.Fields[1].AsString));
 
-      DM.qryCor.Next;
-      if DM.qryCor.Eof then
+      qryCores.Next;
+      if qryCores.Eof then
       begin
          cdsCoresDisponiveis.Post;
          Break;
@@ -268,14 +287,14 @@ begin
 
       //Coluna 2
       cdsCoresDisponiveisbSelecao2.Value := False;
-      cdsCoresDisponiveisID2.Value := DM.qryCor.Fields[0].AsInteger;
-      cdsCoresDisponiveisNomeCor2.Value := DM.qryCor.Fields[1].AsString;
+      cdsCoresDisponiveisID2.Value := qryCores.Fields[0].AsInteger;
+      cdsCoresDisponiveisNomeCor2.Value := qryCores.Fields[1].AsString;
 
-      MaiorWidth2 := IfThen(length(DM.qryCor.Fields[1].AsString) <  MaiorWidth2, MaiorWidth2,
-                                         length(DM.qryCor.Fields[1].AsString));
+      MaiorWidth2 := IfThen(length(qryCores.Fields[1].AsString) <  MaiorWidth2, MaiorWidth2,
+                                         length(qryCores.Fields[1].AsString));
 
-      DM.qryCor.Next;
-      if DM.qryCor.Eof then
+      qryCores.Next;
+      if qryCores.Eof then
       begin
          cdsCoresDisponiveis.Post;
          Break;
@@ -283,14 +302,14 @@ begin
 
       //Coluna3
       cdsCoresDisponiveisbSelecao3.Value := False;
-      cdsCoresDisponiveisID3.Value := DM.qryCor.Fields[0].AsInteger;
-      cdsCoresDisponiveisNomeCor3.Value := DM.qryCor.Fields[1].AsString;
+      cdsCoresDisponiveisID3.Value := qryCores.Fields[0].AsInteger;
+      cdsCoresDisponiveisNomeCor3.Value := qryCores.Fields[1].AsString;
 
-      MaiorWidth3 := IfThen(length(DM.qryCor.Fields[1].AsString) <  MaiorWidth3, MaiorWidth3,
-                                         length(DM.qryCor.Fields[1].AsString));
+      MaiorWidth3 := IfThen(length(qryCores.Fields[1].AsString) <  MaiorWidth3, MaiorWidth3,
+                                         length(qryCores.Fields[1].AsString));
 
-      DM.qryCor.Next;
-      if DM.qryCor.Eof then
+      qryCores.Next;
+      if qryCores.Eof then
       begin
          cdsCoresDisponiveis.Post;
          Break;
@@ -298,14 +317,14 @@ begin
 
       //Coluna4
       cdsCoresDisponiveisbSelecao4.Value := False;
-      cdsCoresDisponiveisID4.Value := DM.qryCor.Fields[0].AsInteger;
-      cdsCoresDisponiveisNomeCor4.Value := DM.qryCor.Fields[1].AsString;
+      cdsCoresDisponiveisID4.Value := qryCores.Fields[0].AsInteger;
+      cdsCoresDisponiveisNomeCor4.Value := qryCores.Fields[1].AsString;
 
-      MaiorWidth4 := IfThen(length(DM.qryCor.Fields[1].AsString) <  MaiorWidth4, MaiorWidth4,
-                                         length(DM.qryCor.Fields[1].AsString));
+      MaiorWidth4 := IfThen(length(qryCores.Fields[1].AsString) <  MaiorWidth4, MaiorWidth4,
+                                         length(qryCores.Fields[1].AsString));
 
-      DM.qryCor.Next;
-      if DM.qryCor.Eof then
+      qryCores.Next;
+      if qryCores.Eof then
       begin
          cdsCoresDisponiveis.Post;
          Break;
@@ -371,6 +390,16 @@ begin
   inherited;
   //Preenche o client data set com as cores
   doPreencheCds();
+end;
+
+procedure TfrmArtigo_Criacao.vReferenciaExit(Sender: TObject);
+begin
+  inherited;
+   //preenche os campos caso a referencia já exista
+   doInformacaoReferencia(vReferencia.Text);
+
+   //preenche novamente as cores para deixar apenas cores ainda não criadas para esse ref
+   doPreencheCds();
 end;
 
 end.
